@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FlowersByIlse | Handgemaakte Pijpenrager Bloemen</title>
+  <style>
+    /* ==========================================
+       1. Kleuren, Variabelen & Reset
+       ========================================== */
+    :root {
+      --pink-soft: #fff0f5;
+      --pink-light: #fbcfe8;
+      --pink-medium: #f472b6;
+      --pink-accent: #db2777;
+      --pink-dark: #831843;
+      --white: #ffffff;
+      --text-dark: #374151;
+      --text-muted: #6b7280;
+      --shadow-sm: 0 2px 8px rgba(219, 39, 119, 0.08);
+      --shadow-md: 0 8px 24px rgba(219, 39, 119, 0.12);
+      --radius-lg: 20px;
+      --radius-sm: 10px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--pink-soft);
+      color: var(--text-dark);
+      line-height: 1.6;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* ==========================================
+       2. Top Aankondiging Bar
+       ========================================== */
+    .promo-bar {
+      background: linear-gradient(90deg, var(--pink-accent), var(--pink-medium));
+      color: var(--white);
+      text-align: center;
+      padding: 0.6rem 1rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+    }
+
+    /* ==========================================
+       3. Navigatiebalk
+       ========================================== */
+    header {
+      background-color: var(--white);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: var(--shadow-sm);
+    }
+
+    nav {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1.2rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: var(--pink-accent);
+      letter-spacing: -0.5px;
+    }
+
+    .logo span {
+      color: var(--pink-medium);
+    }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 2rem;
+    }
+
+    .nav-links a {
+      font-weight: 600;
+      font-size: 1rem;
+      color: var(--text-dark);
+      transition: all 0.3s ease;
+      padding: 0.4rem 0.8rem;
+      border-radius: 8px;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--pink-accent);
+      background-color: var(--pink-soft);
+    }
+
+    /* ==========================================
+       4. Algemene Buttons & Layouts
+       ========================================== */
+    .btn-primary {
+      display: inline-block;
+      background-color: var(--pink-accent);
+      color: var(--white);
+      padding: 0.9rem 2.2rem;
+      border-radius: 30px;
+      font-weight: 700;
+      font-size: 1rem;
+      box-shadow: 0 4px 15px rgba(219, 39, 119, 0.3);
+      transition: all 0.3s ease;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-primary:hover {
+      background-color: var(--pink-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(219, 39, 119, 0.4);
+    }
+
+    .btn-secondary {
+      display: inline-block;
+      background-color: var(--white);
+      color: var(--pink-accent);
+      border: 2px solid var(--pink-accent);
+      padding: 0.8rem 2rem;
+      border-radius: 30px;
+      font-weight: 700;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .btn-secondary:hover {
+      background-color: var(--pink-soft);
+      transform: translateY(-2px);
+    }
+
+    .page-section {
+      display: none; /* Met JS schakelen we tussen pagina's */
+      animation: fadeIn 0.4s ease-in-out;
+    }
+
+    .page-section.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 4rem 2rem;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .section-header h2 {
+      font-size: 2.3rem;
+      color: var(--pink-accent);
+      margin-bottom: 0.5rem;
+    }
+
+    .section-header p {
+      color: var(--text-muted);
+      font-size: 1.1rem;
+    }
+
+    /* ==========================================
+       5. HOME PAGE
+       ========================================== */
+    .hero {
+      background: linear-gradient(135deg, var(--white) 0%, var(--pink-soft) 100%);
+      padding: 5rem 2rem;
+      text-align: center;
+      border-bottom: 2px solid var(--pink-light);
+    }
+
+    .hero-content {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background-color: var(--pink-light);
+      color: var(--pink-dark);
+      padding: 0.4rem 1.2rem;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      color: var(--pink-dark);
+      margin-bottom: 1.2rem;
+      line-height: 1.2;
+    }
+
+    .hero p {
+      font-size: 1.25rem;
+      color: var(--text-dark);
+      margin-bottom: 2rem;
+    }
+
+    .shipping-info-banner {
+      background-color: var(--white);
+      border: 2px dashed var(--pink-medium);
+      padding: 1rem 1.5rem;
+      border-radius: 15px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 2rem;
+      font-weight: 600;
+      color: var(--pink-accent);
+    }
+
+    /* USPs */
+    .usps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .usp-card {
+      background: var(--white);
+      padding: 2.5rem 1.5rem;
+      border-radius: var(--radius-lg);
+      text-align: center;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--pink-light);
+    }
+
+    .usp-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    .usp-card h3 {
+      color: var(--pink-accent);
+      margin-bottom: 0.5rem;
+    }
+
+    /* ==========================================
+       6. PRODUCTEN PAGE
+       ========================================== */
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+
+    .product-card {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--pink-light);
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .product-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .product-img {
+      height: 220px;
+      background: linear-gradient(135deg, var(--pink-soft), var(--pink-light));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4rem;
+      position: relative;
+    }
+
+    .product-tag {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: var(--pink-accent);
+      color: var(--white);
+      padding: 0.3rem 0.8rem;
+      border-radius: 12px;
+      font-size: 0.8rem;
+      font-weight: bold;
+    }
+
+    .product-body {
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    .product-title {
+      font-size: 1.3rem;
+      color: var(--text-dark);
+      margin-bottom: 0.5rem;
+    }
+
+    .product-desc {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 1.5rem;
+      flex-grow: 1;
+    }
+
+    .product-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: auto;
+    }
+
+    .product-price {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: var(--pink-accent);
+    }
+
+    /* ==========================================
+       7. PORTFOLIO PAGE
+       ========================================== */
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .portfolio-item {
+      position: relative;
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      height: 280px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4rem;
+      border: 1px solid var(--pink-light);
+    }
+
+    .portfolio-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(131, 24, 67, 0.85);
+      color: var(--white);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 1.5rem;
+      text-align: center;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .portfolio-item:hover .portfolio-overlay {
+      opacity: 1;
+    }
+
+    .portfolio-overlay h3 {
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
+    }
+
+    /* ==========================================
+       8. OVER MIJ PAGE
+       ========================================== */
+    .about-wrapper {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 3rem;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--pink-light);
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 3rem;
+      align-items: center;
+    }
+
+    .about-avatar {
+      height: 300px;
+      background: linear-gradient(135deg, var(--pink-light), var(--pink-medium));
+      border-radius: var(--radius-lg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 6rem;
+    }
+
+    .about-text h2 {
+      color: var(--pink-accent);
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .about-text p {
+      margin-bottom: 1rem;
+      color: var(--text-dark);
+      font-size: 1.05rem;
+    }
+
+    /* ==========================================
+       9. CONTACT PAGE
+       ========================================== */
+    .contact-wrapper {
+      max-width: 700px;
+      margin: 0 auto;
+      background: var(--white);
+      padding: 3rem;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--pink-light);
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+      display: block;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: var(--pink-dark);
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 0.9rem 1rem;
+      border: 2px solid var(--pink-light);
+      border-radius: var(--radius-sm);
+      font-size: 1rem;
+      outline: none;
+      transition: border-color 0.3s ease;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      border-color: var(--pink-accent);
+    }
+
+    /* ==========================================
+       10. Footer
+       ========================================== */
+    footer {
+      background-color: var(--white);
+      border-top: 2px solid var(--pink-light);
+      padding: 3rem 2rem;
+      margin-top: 4rem;
+      text-align: center;
+    }
+
+    footer p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    footer .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-top: 1rem;
+      list-style: none;
+    }
+
+    footer .footer-links a {
+      color: var(--pink-accent);
+      font-weight: 600;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      nav {
+        flex-direction: column;
+        gap: 1rem;
+      }
+      .about-wrapper {
+        grid-template-columns: 1fr;
+      }
+      .hero h1 {
+        font-size: 2.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Announcement Bar -->
+  <div class="promo-bar">
+    🚚 Gratis verzending in Nederland vanaf €35! • Voor 1-3 werkdagen verzonden
+  </div>
+
+  <!-- Header Navigatie -->
+  <header>
+    <nav>
+      <div class="logo"><a href="#" onclick="showPage('home')">FlowersBy<span>Ilse</span></a></div>
+      <ul class="nav-links">
+        <li><a href="#" id="link-home" class="active" onclick="showPage('home')">Home</a></li>
+        <li><a href="#" id="link-producten" onclick="showPage('producten')">Producten</a></li>
+        <li><a href="#" id="link-portfolio" onclick="showPage('portfolio')">Portfolio</a></li>
+        <li><a href="#" id="link-over-mij" onclick="showPage('over-mij')">Over Mij</a></li>
+        <li><a href="#" id="link-contact" onclick="showPage('contact')">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- ==================== PAGE 1: HOME ==================== -->
+  <section id="home" class="page-section active">
+    <div class="hero">
+      <div class="hero-content">
+        <span class="hero-badge">✨ Handgemaakte Pijpenrager Bloemen</span>
+        <h1>Kleurrijke bloemen die voor altijd prachtig blijven</h1>
+        <p>Unieke, met de hand gevormde kunstbloemen van hoogwaardige zachte pijpenragers. Perfect als blijvend cadeau of vrolijke blikvanger in je interieur!</p>
+        
+        <div class="shipping-info-banner">
+          📦 Snelle levering in NL (1-3 werkdagen) • Gratis verzending va. €35
+        </div>
+        <br>
+        <div>
+          <button class="btn-primary" onclick="showPage('producten')">Bekijk de Collectie</button>
+          <button class="btn-secondary" onclick="showPage('contact')">Custom Bestelling</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="section-header">
+        <h2>Populaire Favorieten</h2>
+        <p>Een greep uit onze meest geliefde handgemaakte creaties</p>
+      </div>
+
+      <div class="products-grid">
+        <div class="product-card">
+          <div class="product-img">🌹 <span class="product-tag">Populair</span></div>
+          <div class="product-body">
+            <h3 class="product-title">Pastel Droomroos</h3>
+            <p class="product-desc">Prachtige handgebogen roos in zachtroze tinten. Blijft eeuwig mooi.</p>
+            <div class="product-footer">
+              <span class="product-price">€ 4,50</span>
+              <button class="btn-primary" onclick="showPage('contact')">Bestel</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="product-img">💐 <span class="product-tag">Bestseller</span></div>
+          <div class="product-body">
+            <h3 class="product-title">Lente Vreugde Boeket</h3>
+            <p class="product-desc">Gemengd boeket van 5 handgemaakte bloemen waaronder rozen en madeliefjes.</p>
+            <div class="product-footer">
+              <span class="product-price">€ 19,95</span>
+              <button class="btn-primary" onclick="showPage('contact')">Bestel</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="product-img">🌻</div>
+          <div class="product-body">
+            <h3 class="product-title">Zonnige Zonnebloem</h3>
+            <p class="product-desc">Breng direct de zon in huis met deze grote vrolijke pijpenrager zonnebloem.</p>
+            <div class="product-footer">
+              <span class="product-price">€ 6,50</span>
+              <button class="btn-primary" onclick="showPage('contact')">Bestel</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- USPs -->
+      <div class="usps-grid">
+        <div class="usp-card">
+          <span class="usp-icon">🌸</span>
+          <h3>Eeuwige Schoonheid</h3>
+          <p>Geen water nodig en verwelken nooit. Geniet jarenlang van een perfect boeket.</p>
+        </div>
+        <div class="usp-card">
+          <span class="usp-icon">✨ 100% Uniek</span>
+          <h3>Liefdevol Handgemaakt</h3>
+          <p>Elke bloem wordt stapsgewijs met de hand gebogen en gevormd door Ilse.</p>
+        </div>
+        <div class="usp-card">
+          <span class="usp-icon">🎁 Perfect Cadeau</span>
+          <h3>Blijvende Herinnering</h3>
+          <p>Verras een dierbare met een origineel en duurzaam bloemencadeau.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== PAGE 2: PRODUCTEN ==================== -->
+  <section id="producten" class="page-section">
+    <div class="container">
+      <div class="section-header">
+        <h2>Onze Collectie</h2>
+        <p>Kies jouw favoriete losse bloemen of complete boeketten</p>
+      </div>
+
+      <div class="products-grid">
+        <div class="product-card">
+          <div class="product-img">🌹</div>
+          <div class="product-body">
+            <h3 class="product-title">Pastel Roos</h3>
+            <p class="product-desc">Mooie roze roos met gedetailleerde blaadjes van pluis-pijpenragers.</p>
+            <div class="product-footer">
+              <span class="product-price">€ 4,50</span>
+              <button class="btn-primary" onclick="showPage('contact')">Bestel</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="product-img">🌷</div>
+          <div class="product-body">
+            <h3 class="product-title">Roze Tulp</h3>
+            <p class="product-desc">Klassieke Nederlandse tulp in een schattig roze jasje.</p>
+            <div class="product-footer">
+              <span class="product-price">€ 3,95</span>
+              <button class="btn-primary" onclick="showPage('contact')">Bestel</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="product-img">🌼</div>
+          <div class="product-body">
+            <h3 class="product-title">Madeliefjes Tak</h3>
+            <p class="product-desc">Schattige tak met 3 kleine witte madeliefjes en geel hartje.</p>
+            <div class="product-footer">
+              <span class="product-price">€ 4,00</span>
+              <button class="btn-primary" onclick="showPage('contact')">Bestel</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="product-img">💐</div>
+          <div class="product-body">
+            <h3 class="product-title">Pastel Droom Boeket</h3>
+            <p class="product-desc">Groot luxe boeket met 7 veldbloemen in roze, wit en zachtgeel.</p>
+            <div class="product-footer">
+              <span class="product-price">€ 27,50</span>
+              <button class="btn-primary" onclick="showPage('contact')">Bestel</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="product-img">🌸</div>
+          <div class="product-body">
+            <h3 class="product-title">Kersenbloesem Tak</h3>
+            <p class="product-desc">Sfeervolle tak vol kleine roze bloesems. Heel stijlvol in een smalle vaas.</p>
+            <div class="product-footer">
+              <span class="product-price">€ 7,50</span>
+              <button class="btn-primary" onclick="showPage('contact')">Bestel</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="product-img">🔑</div>
+          <div class="product-body">
+            <h3 class="product-title">Bloemen Sleutelhanger</h3>
+            <p class="product-desc">Mini pijpenrager bloem als schattige sleutelhanger voor aan je tas.</p>
+            <div class="product-footer">
+              <span class="product-price">€ 3,50</span>
+              <button class="btn-primary" onclick="showPage('contact')">Bestel</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== PAGE 3: PORTFOLIO ==================== -->
+  <section id="portfolio" class="page-section">
+    <div class="container">
+      <div class="section-header">
+        <h2>Portfolio & Inspiratie</h2>
+        <p>Bekijk eerdere projecten, maatwerk en bloemen bij klanten thuis</p>
+      </div>
+
+      <div class="portfolio-grid">
+        <div class="portfolio-item">
+          💐
+          <div class="portfolio-overlay">
+            <h3>Bruidsboeket Inspiratie</h3>
+            <p>Duurzaam boeket op maat gemaakt voor een speciale dag.</p>
+          </div>
+        </div>
+        <div class="portfolio-item">
+          🌷
+          <div class="portfolio-overlay">
+            <h3>Voorjaars Vaas</h3>
+            <p>Combinatie van tulpen en pastelkleurige takken.</p>
+          </div>
+        </div>
+        <div class="portfolio-item">
+          🌺
+          <div class="portfolio-overlay">
+            <h3>XL Pioenroos</h3>
+            <p>Extra grote opvallende pioenroos gemaakt met meer dan 30 pijpenragers.</p>
+          </div>
+        </div>
+        <div class="portfolio-item">
+          🎀
+          <div class="portfolio-overlay">
+            <h3>Cadeau Verpakking</h3>
+            <p>Elke bestelling wordt feestelijk ingepakt in roze vloeipapier.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== PAGE 4: OVER MIJ ==================== -->
+  <section id="over-mij" class="page-section">
+    <div class="container">
+      <div class="about-wrapper">
+        <div class="about-avatar">👩‍🎨</div>
+        <div class="about-text">
+          <h2>Hoi, ik ben Ilse!</h2>
+          <p>Welkom bij <strong>FlowersByIlse</strong>! Mijn passie voor creativiteit en knutselen begon al op jonge leeftijd, maar toen ik de veelzijdigheid van pijpenragers ontdekte, werd ik op slag verliefd op het maken van bloemen.</p>
+          <p>Wat begon als een ontspannende hobby aan de keukentafel met het draaien en buigen van zachte draden, is uitgegroeid tot een creatieve shop vol unieke kunstbloemen. Ik hou ervan om te spelen met roze tinten, pastelkleuren en vrolijke details.</p>
+          <p>Elke bloem wordt 100% met de hand gemaakt. Dat betekent dat geen enkele bloem exact hetzelfde is – je krijgt dus altijd een echt uniek kunstwerkje voor in huis of om cadeau te geven!</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== PAGE 5: CONTACT ==================== -->
+  <section id="contact" class="page-section">
+    <div class="container">
+      <div class="section-header">
+        <h2>Neem Contact Op</h2>
+        <p>Heb je vragen, een bestelling of wil je een boeket op maat laten maken?</p>
+      </div>
+
+      <div class="contact-wrapper">
+        <form onsubmit="alert('Bedankt voor je bericht! Ilse neemt zo snel mogelijk contact met je op.'); return false;">
+          <div class="form-group">
+            <label for="naam">Naam</label>
+            <input type="text" id="naam" placeholder="Jouw volledige naam" required>
+          </div>
+          <div class="form-group">
+            <label for="email">E-mailadres</label>
+            <input type="email" id="email" placeholder="jouw@email.nl" required>
+          </div>
+          <div class="form-group">
+            <label for="onderwerp">Onderwerp</label>
+            <input type="text" id="onderwerp" placeholder="bijv. Bestelling of Vraag over maatwerk">
+          </div>
+          <div class="form-group">
+            <label for="bericht">Bericht</label>
+            <textarea id="bericht" rows="5" placeholder="Typ hier je bericht of wensen voor je bloemen..." required></textarea>
+          </div>
+          <button type="submit" class="btn-primary" style="width: 100%;">Verstuur Bericht</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2026 FlowersByIlse. Met liefde & pijpenragers handgemaakt.</p>
+    <ul class="footer-links">
+      <li><a href="#" onclick="showPage('home')">Home</a></li>
+      <li><a href="#" onclick="showPage('producten')">Producten</a></li>
+      <li><a href="#" onclick="showPage('portfolio')">Portfolio</a></li>
+      <li><a href="#" onclick="showPage('over-mij')">Over Mij</a></li>
+      <li><a href="#" onclick="showPage('contact')">Contact</a></li>
+    </ul>
+  </footer>
+
+  <!-- JavaScript voor werkende navigatie -->
+  <script>
+    function showPage(pageId) {
+      // Verberg alle pagina secties
+      const sections = document.querySelectorAll('.page-section');
+      sections.forEach(section => {
+        section.classList.remove('active');
+      });
+
+      // Toon de gekozen pagina
+      const targetPage = document.getElementById(pageId);
+      if (targetPage) {
+        targetPage.classList.add('active');
+      }
+
+      // Update actieve status in de navigatiebalk
+      const navLinks = document.querySelectorAll('.nav-links a');
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+      });
+      
+      const activeLink = document.getElementById('link-' + pageId);
+      if (activeLink) {
+        activeLink.classList.add('active');
+      }
+
+      // Scroll naar boven
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  </script>
+</body>
+</html>
